@@ -6,6 +6,7 @@ import 'package:sample_flutter/features/todo_page/page/widgets/add_todo_widget.d
 
 class TodoPage extends StatelessWidget {
   const TodoPage({super.key});
+
   void showAddTodoWidget(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -73,10 +74,12 @@ class ItemWidget extends StatelessWidget {
       required this.description,
       required this.index,
       required this.isComplete});
+
   final String title;
   final String description;
   final int index;
   final bool isComplete;
+
   @override
   Widget build(BuildContext context) {
     Color bgColor = isComplete ? Colors.green : Colors.grey;
@@ -84,7 +87,9 @@ class ItemWidget extends StatelessWidget {
       color: bgColor,
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+
+        },
         title: Text(
           title,
           style: TextStyle(
