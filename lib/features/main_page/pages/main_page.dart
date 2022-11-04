@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<NaviBottomCubit, NaviBottomState>(
       builder: (context, state) {
-        return Scaffold(
+        return Scaffold( 
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: Text(serviceLocator.get<NaviBottomCubit>().title),
