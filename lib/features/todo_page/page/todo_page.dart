@@ -7,7 +7,7 @@ import 'package:sample_flutter/features/todo_page/page/widgets/add_todo_widget.d
 class TodoPage extends StatelessWidget {
   const TodoPage({super.key});
 
-  void showAddTodoWidget(BuildContext context) {
+  void showAddTodoWidget(BuildContext context, String title, String subTitle) {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -17,7 +17,10 @@ class TodoPage extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: const AddTodoWidget(),
+            child: AddTodoWidget(
+              title: title,
+              subTitle: subTitle,
+            ),
           ),
         );
       },
@@ -29,11 +32,19 @@ class TodoPage extends StatelessWidget {
     return BlocBuilder<TodoPageBloc, TodoPageState>(builder: (context, state) {
       if (state is TodoPageInitial) {
         return Center(
-          child: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {
-              showAddTodoWidget(context);
-            },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FloatingActionButton(
+                child: const Icon(Icons.add),
+                onPressed: () {
+                  showAddTodoWidget(context, '', '');
+                },
+              ),
+              TextField(
+                controller: TextEditingController(text: state.strTest),
+              ),
+            ],
           ),
         );
       } else {
@@ -41,11 +52,17 @@ class TodoPage extends StatelessWidget {
           ListView.builder(
             itemCount: state.listTodo.length,
             itemBuilder: (context, index) {
-              return ItemWidget(
-                title: state.listTodo[index].title,
-                description: state.listTodo[index].description,
-                index: index,
-                isComplete: state.listTodo[index].isComplete,
+              return GestureDetector(
+                onTap: () => showAddTodoWidget(
+                    context,
+                    state.listTodo[index].title,
+                    state.listTodo[index].description),
+                child: ItemWidget(
+                  title: state.listTodo[index].title,
+                  description: state.listTodo[index].description,
+                  index: index,
+                  isComplete: state.listTodo[index].isComplete,
+                ),
               );
             },
           ),
@@ -56,7 +73,7 @@ class TodoPage extends StatelessWidget {
               child: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () {
-                  showAddTodoWidget(context);
+                  showAddTodoWidget(context, '', '');
                 },
               ),
             ),
@@ -87,9 +104,6 @@ class ItemWidget extends StatelessWidget {
       color: bgColor,
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: ListTile(
-        onTap: () {
-
-        },
         title: Text(
           title,
           style: TextStyle(

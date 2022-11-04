@@ -1,14 +1,16 @@
 part of 'todo_page_bloc.dart';
 
 @immutable
-abstract class TodoPageState {
+abstract class TodoPageState  {
   final List<TodoModel> listTodo;
 
   const TodoPageState({required this.listTodo});
+
 }
 
 class TodoPageInitial extends TodoPageState {
-  const TodoPageInitial({required super.listTodo});
+  final String strTest;
+  const TodoPageInitial(this.strTest, {required super.listTodo});
 }
 
 class TodoPageLoaded extends TodoPageState {

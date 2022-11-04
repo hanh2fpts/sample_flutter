@@ -10,9 +10,9 @@ part 'todo_page_state.dart';
 class TodoPageBloc extends Bloc<TodoPageEvent, TodoPageState> {
   List<TodoModel> listTodoItem;
   int id = 0;
-
+  static String test = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa';
   TodoPageBloc({required this.listTodoItem})
-      : super(TodoPageInitial(listTodo: listTodoItem)) {
+      : super(TodoPageInitial(test ,listTodo: listTodoItem)) {
     on<AddTodo>(_addTodoItem);
     on<MarkComplete>(_markComplete);
   }

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_flutter/di/service_locator.dart';
 import 'package:sample_flutter/features/todo_page/bloc/todo_page_bloc.dart';
 import 'package:sample_flutter/model/todo_model.dart';
 
 class AddTodoWidget extends StatefulWidget {
-  const AddTodoWidget({super.key});
+  const AddTodoWidget({super.key, this.title = '', this.subTitle = ''});
+
+  final String title;
+  final String subTitle;
 
   @override
   State<AddTodoWidget> createState() => _AddTodoWidgetState();
@@ -13,8 +17,8 @@ class AddTodoWidget extends StatefulWidget {
 class _AddTodoWidgetState extends State<AddTodoWidget> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController titleController = TextEditingController();
-    TextEditingController descriptionController = TextEditingController();
+    TextEditingController titleController = TextEditingController(text: widget.title);
+    TextEditingController descriptionController = TextEditingController(text: widget.subTitle);
     return Column(
       children: [
         const SizedBox(
@@ -72,6 +76,7 @@ class _AddTodoWidgetState extends State<AddTodoWidget> {
                         .get<TodoPageBloc>()
                         .add(AddTodo(todoItem: item));
                     Navigator.pop(context);
+                    //context.read<TodoPageBloc>().add(AddTodo(todoItem: item));
                   },
                   style: ElevatedButton.styleFrom(
                       minimumSize: const Size(100, 40)),

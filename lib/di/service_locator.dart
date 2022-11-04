@@ -10,6 +10,4 @@ Future<void> setUpServiceLocator() async {
   serviceLocator
       .registerLazySingleton(() => TodoPageBloc(listTodoItem: <TodoModel>[]));
   serviceLocator.registerLazySingleton(() => StatusPageBloc());
-
-  
 }
